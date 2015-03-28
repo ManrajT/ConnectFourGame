@@ -1,5 +1,4 @@
-
-//Creating canvas
+//Check out this link to see the simulation in action http://jsfiddle.net/ManrajT/d1azm7qh/15/
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = canvas.height = 400;
@@ -11,8 +10,7 @@ var boardWidth = 10;
 var player1Colour = "red";
 var player2Colour = "blue";
 var font = "30px Arial";
-var milliUpdateSpeed = 50;
-
+var milliUpdateSpeed = 100;
 
 function init() {
     var sqrWidth = canvas.width / boardWidth;
@@ -46,7 +44,7 @@ function init() {
     }
 
     function renderBoard(board) {
-
+        //If I was going to use JSFiddle and canvas to make things easy to see, it didn't make sense to have ASCII where I could have actual graphics
         function renderCircle(i, j, colour) {
             ctx.beginPath();
             radius = Math.min(sqrWidth, sqrHeight) / 2;
@@ -122,12 +120,11 @@ function init() {
     }
 
     function checkWin(i, j, type, board) {
-
+        //for win checking, a for loop is used to go across horizontal, vertical, and angled lines which go through the last piece put down.  A count is kept of consecutive pieces of the given type, and if this reaches four then that player has won.  
         function horizontalWin() {
             var horizontalCount = 0;
             for (var z = 0; z < board.width; z++) {
                 if (board.getPiece(i, z) === type) {
-                    console.log(board.getPiece(i, z));
                     horizontalCount++;
                 } else {
                     horizontalCount = 0;
@@ -162,7 +159,6 @@ function init() {
             }
             for (;
             (i_check < board.height) && (j_check < board.width); i_check++, j_check++) {
-                console.log("for loop is running");
                 if (board.getPiece(i_check, j_check) === type) {
                     angleCount++;
                 } else {
@@ -178,9 +174,7 @@ function init() {
                 i_check--;
                 j_check++;
             }
-            for (;
-            (i_check < board.height) && (0 <= j_check); i_check++, j_check--) {
-                console.log("second for loop is running");
+            for (; (i_check < board.height) && (0 <= j_check); i_check++, j_check--) {
                 if (board.getPiece(i_check, j_check) === type) {
                     angleCount++;
                 } else {
@@ -204,7 +198,6 @@ function init() {
         moves++;
         var chosenColumn;
         var availRow;
-
 
         renderBoard(board);
         checkDraw(board);
@@ -237,4 +230,4 @@ function init() {
     }, milliUpdateSpeed);
 }
 
-init();}
+init();
